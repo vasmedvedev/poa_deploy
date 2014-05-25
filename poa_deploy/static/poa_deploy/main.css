@@ -1,0 +1,31 @@
+table,th,td {
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid black;
+	border-collapse: collapse
+}
+
+tbody {
+	text-align: right;
+}
+.ip_field {
+	width: 150px;
+}
+
+#poa_installations_form {
+	float: left;
+	display: table;
+}
+
+#aps_applications_form {
+	float: right;
+}
+
+#app_name_field {
+	width: 200px
+}
+
+.version_field {
+	width: 100px
+}

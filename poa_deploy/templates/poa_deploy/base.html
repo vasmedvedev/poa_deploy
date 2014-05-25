@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		{% csrf_token %}
+		<link rel="stylesheet" type="text/css" href="/static/poa_deploy/main.css">
+		{% block scripts %}
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		{% endblock scripts %}
+		<title>POA API - {% block pagetitle %}{% endblock pagetitle %}</title>
+	</head>
+	<body>
+		<div id="aps_applications_form" class="form">{% block aps_applications_form %}{% endblock aps_applications_form %}</div>
+		<div id="poa_installations_form" class="form">{% block poa_installations_form %}{% endblock poa_installations_form %}</div>
+		<p>{% block content %}{% endblock %}</p>
+	</body>
+</html>

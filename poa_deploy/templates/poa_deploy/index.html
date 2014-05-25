@@ -1,0 +1,54 @@
+{% extends "poa_deploy/base.html" %}
+
+{% block scripts %}{{ block.super }}
+<script src="/static/poa_deploy/index_page.js"></script>
+<script src="/static/poa_deploy/get_cookie.js"></script>
+{% endblock scripts %}
+{% block pagetitle %}{{ pagetitle }}{% endblock pagetitle %}
+
+{% block poa_installations_form %}{{ block.super }}
+	<form id="poa_add_form" action="add_poa_to_database" method="POST">
+		POA MN IP: <input type="text" name="poa_ip">
+		<input id="submit" type="submit" value="Add" class="button"/>
+	</form>
+	<table id="poa_table" style="width:300px; margin-top:10px">
+		<tr>
+			<th class="ip_field">IP</th>
+			<th class="status_field">Status</th>
+		</tr>
+	</table>
+{% endblock %}
+
+{% block aps_applications_form %}
+	<form id="app_add_form" action="add_application_to_database" method="POST">
+		APS application URL: <input style="height: 15px; width: 300px" type="text" name="aps_url">
+		<input id="submit" type="submit" value="Add" class="button"/>
+	</form>
+	<table id="app_table" style="width:500px">
+		<thead>
+			<tr>
+				<th id="app_name_field">Name</th>
+				<th class="version_field">APS version</th>
+				<th class="version_field">Package version</th>
+				<th>Install</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for application in application_list %}
+			<tr>			
+				<td>{{ application.app_name }}</td>
+				<td>{{ application.aps_version }}</td>
+				<td>{{ application.package_version }}</td>
+				<td>
+					<form id="app_install_form" action="install_application" method="POST">
+						<input type="hidden" name="app_id" value="{{ application.id }}">
+						<input type="submit" value="Install" class="button"/>
+					</form>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
+
+{% block content %}{% endblock content %}
