@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core import serializers
 from django.http import HttpResponse
 from poa_deploy.models import Method, Application, Installation
+from poa_deploy.models import Instance
 from poa_deploy.classes import Api
 import poa_deploy.utils as utils
 import poa_deploy.poa_manage as poamngmnt
@@ -55,29 +56,15 @@ def install_application(request):
         application = Application.objects.get(pk=app_id)
         if connection is not None and application is not None:
             try:
-                app_name = application.app_name
-                app_url = application.url
-                app_meta_url = utils.get_appmeta_url(app_url)
-                app_meta_parsed = utils.get_app_meta_parsed(app_meta_url)
-                application_settings = utils.get_application_mandatory_settings(app_meta_parsed)
                 txn_id = connection.txn.Begin()['result']['txn_id']
                 api = Api(connection, txn_id)
-                #import_response = utils.import_app_to_poa(app_url, api)
-                #rt_response = utils.create_rt_for_app(import_response['application_id'], app_name, api)
-                rt_response = utils.create_rt_for_app(198, app_name, api)
-                st_id = utils.create_service_template(rt_response['resource_type_id'], app_name, api)
-                subscr_response = utils.create_subscription(st_id, app_name, api)
-                instance_response = utils.provide_application_instance(subscr_response['subscription_id'],
-                                                                        rt_response['resource_type_id'],
-                                                                        subscr_response['domain_name'],
-                                                                        api,
-                                                                        application_settings)
+                instance_params = utils.fully_provide_application(application, api)
                 connection.txn.Commit({'txn_id': txn_id})
-                response = {'status': 0}
+                instance = Instance.objects.create(**instance_params)
+                response = {'status': 0, 'instance_id': instance.instance_id}
             except Exception as e:
                 connection.txn.Rollback({'txn_id': txn_id})
                 response = {'status': 1, 'Error': str(e) + ' , action rolled back'}
         else:
             return None
-        
     return HttpResponse(json.dumps(response), content_type='application/json')

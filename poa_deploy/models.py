@@ -9,7 +9,8 @@ class Method(models.Model):
 
 class Installation(models.Model):
     installation_name = models.CharField(max_length=200)
-    api_access_point = models.CharField(max_length=200)
+    ip_address = models.CharField(max_length=200)
+    status = models.BooleanField()
     login = models.CharField(max_length=200, blank=True)
     password = models.CharField(max_length=200, blank=True)
     
@@ -19,26 +20,13 @@ class Application(models.Model):
     aps_version = models.CharField(max_length=3)
     package_version = models.CharField(max_length=10)
 
-    def get_url(self):
-        return self.url
-
 class Instance(models.Model):
-    READY = 0
-    PROVISIONING = 1
-    UNPROVISIONING = 2
-    UNKNOWN = 3
-    STATUS_CHOICES = (
-        (READY, 'Ready'),
-        (PROVISIONING, 'Provisioning'),
-        (UNPROVISIONING, 'Unprovisioning'),
-        (UNKNOWN, 'Unknown')
-    )
-    status = models.IntegerField(choices=STATUS_CHOICES, default=UNKNOWN)
-    application = models.ForeignKey(Application)
-    poa_instance_id = models.IntegerField()
-    
-    def is_ready(self):
-        return self.status == self.READY
+    st_id = models.IntegerField()
+    rt_id = models.IntegerField()
+    sub_id = models.IntegerField()
+    instance_id = models.IntegerField()
+    poa_app_id = models.IntegerField()
+    domain_name = models.CharField(max_length=200)
 
     
 
