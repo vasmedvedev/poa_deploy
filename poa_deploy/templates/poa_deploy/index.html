@@ -44,23 +44,10 @@
 				<th id="app_name_field">Name</th>
 				<th class="version_field">APS version</th>
 				<th class="version_field">Package version</th>
-				<th>Install</th>
+				<th>Select</th>
 			</tr>
 		</thead>
-		<tbody>
-			{% for application in application_list %}
-			<tr>			
-				<td>{{ application.app_name }}</td>
-				<td>{{ application.aps_version }}</td>
-				<td>{{ application.package_version }}</td>
-				<td>
-					<form id="app_install_form" action="install_application" method="POST">
-						<input type="hidden" name="app_id" value="{{ application.id }}">
-						<input type="submit" value="Install" class="button"/>
-					</form>
-				</td>
-			</tr>
-			{% endfor %}
+		<tbody id="app_list">
 		</tbody>
 	</table>
 {% endblock %}

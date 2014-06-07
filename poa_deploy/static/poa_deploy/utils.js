@@ -1,4 +1,3 @@
-//commentd
 var $interceptForm = function(form, outputElem, additionalParams) { //Inputs are JQuery objects, add params is json
     form.submit(function( event ) {
         var csrftoken = getCookie('csrftoken');
@@ -23,6 +22,27 @@ var $interceptForm = function(form, outputElem, additionalParams) { //Inputs are
         event.preventDefault();
     }); // $( form )
 }// var $interceptForm
+
+var $getEntitiesAndDraw = function(url, outputElem) {
+    var postData = [{name: 'csrfmiddlewaretoken', value: getCookie('csrftoken')}];
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: postData,
+        success: function(data) {
+            //data = $.parseJSON(data);
+            console.log(data);
+            $.each(data, function(i, item) {
+                $('<tr>').append(
+                    $('<td>').text(item.fields.app_name),
+                    $('<td>').text(item.fields.aps_version),
+                    $('<td>').text(item.fields.package_version),
+                    $('<input type="radio" name="app_id">').attr("value", item.pk)
+                ).appendTo(outputElem);
+            });
+        } // success function
+    });
+} // var $getEntitiesAndDraw
 
 function getCookie(name) {
     var cookieValue = null;

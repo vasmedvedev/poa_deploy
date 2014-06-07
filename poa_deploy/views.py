@@ -66,3 +66,11 @@ def install_application(request):
         else:
             return None
     return HttpResponse(json.dumps(response), content_type='application/json')
+
+def get_applications(request):
+    if request.method == 'POST' and request.is_ajax():
+        applications = Application.objects.order_by('id')
+        json = serializers.serialize('json', applications)
+        return HttpResponse(json, content_type='application/json')
+    else:
+        return HttpResponse('Request is invalid')
