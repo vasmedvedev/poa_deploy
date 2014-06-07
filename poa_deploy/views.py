@@ -38,14 +38,12 @@ def add_application_to_database(request):
         app_attributes = utils.get_application_attributes(app_meta_parsed)
         if app_attributes is not None and not Application.objects.filter(**app_attributes).exists():
             app_attributes.update({'url': url})
-            response = {'status': 0}
-            application = Application(**app_attributes)
-            response.update({'app_url': application.url})
-            application.save()
+            response = {'status': 0, 'result': 'Application added successfully'}
+            Application.objects.create(**app_attributes)
         else:
-            response = {'status': 1}
+            response = {'status': 1, 'result': 'Application cannot be added'}
     else:
-        response = {'status': 1}
+        response = {'status': 1, 'result': 'Application cannot be added'}
     return HttpResponse(json.dumps(response), content_type='application/json')
 
 def install_application(request):

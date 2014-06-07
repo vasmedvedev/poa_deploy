@@ -144,7 +144,7 @@ def remove_sub(sub_id, api):
     params = {'subscription_id': sub_id}
     api.execute('pem.removeSubscription', **params)
     
-def remove_domain(domain_name, domain_id=None, api):
+def remove_domain(domain_name, api, domain_id=None):
     params = {'domain_name': domain_name} if domain_name is None\
         else {'domain_id': domain_id}
     api.execute('pem.removeDomain', **params)
