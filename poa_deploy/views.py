@@ -59,7 +59,7 @@ def install_application(request):
                 instance_params = utils.fully_provide_application(application, api)
                 connection.txn.Commit({'txn_id': txn_id})
                 instance = Instance.objects.create(**instance_params)
-                response = {'status': 0, 'instance_id': instance.instance_id}
+                response = {'status': 0, 'result': 'Application id is ' + str(instance.instance_id)}
             except Exception as e:
                 connection.txn.Rollback({'txn_id': txn_id})
                 response = {'status': 1, 'Error': str(e) + ' , action rolled back'}

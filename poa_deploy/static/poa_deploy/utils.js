@@ -1,18 +1,21 @@
-var $interceptForm = function(form, outputElem) { //Inputs are JQuery objects
+var $interceptForm = function(form, outputElem, additionalParams) { //Inputs are JQuery objects, add params is json
     form.submit(function( event ) {
         var csrftoken = getCookie('csrftoken');
         var postURL = $( this ).attr( "action" );
         var postData = $( this ).serializeArray();
         postData.push({name: 'csrfmiddlewaretoken', value: csrftoken});
+        if (additionalParams !== "undefined") {
+            postData.push(additionalParams);
+        }
         $.ajax({
             url: postURL,
             type: "POST",
             data: postData,
             success: function(data) {
                 if (data['status'] == 0) {
-                    outputElem.html( "Application added" ).css("color", "green");
+                    outputElem.html( data['result'] ).css("color", "green");
                 } else {
-                    outputElem.html( "Cannot import application" ).css("color", "red");
+                    outputElem.html( data['result'] ).css("color", "red");
                 }
             } // success function
         }); // $.ajax

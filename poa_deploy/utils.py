@@ -113,9 +113,9 @@ def fully_provide_application(application, api):
     app_meta_url = get_appmeta_url(app_url)
     app_meta_parsed = get_app_meta_parsed(app_meta_url)
     application_settings = get_application_mandatory_settings(app_meta_parsed)
-    #import_response = import_app_to_poa(app_url, api)
-    #poa_app_id = import_response.get('application_id')
-    poa_app_id = 204
+    import_response = import_app_to_poa(app_url, api)
+    poa_app_id = import_response.get('application_id')
+    #poa_app_id = 204
     rt_response = create_rt_for_app(poa_app_id, app_name, api)
     rt_id = rt_response.get('resource_type_id')
     st_id = create_service_template(rt_id, app_name, api)
