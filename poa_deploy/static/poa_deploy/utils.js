@@ -1,4 +1,4 @@
-//comment
+//commentd
 var $interceptForm = function(form, outputElem, additionalParams) { //Inputs are JQuery objects, add params is json
     form.submit(function( event ) {
         var csrftoken = getCookie('csrftoken');
