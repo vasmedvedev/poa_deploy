@@ -38,14 +38,12 @@ def add_application_to_database(request):
         app_attributes = utils.get_application_attributes(app_meta_parsed)
         if app_attributes is not None and not Application.objects.filter(**app_attributes).exists():
             app_attributes.update({'url': url})
-            response = {'status': 0}
-            application = Application(**app_attributes)
-            response.update({'app_url': application.url})
-            application.save()
+            response = {'status': 0, 'result': 'Application added successfully'}
+            Application.objects.create(**app_attributes)
         else:
-            response = {'status': 1}
+            response = {'status': 1, 'result': 'Application cannot be added'}
     else:
-        response = {'status': 1}
+        response = {'status': 1, 'result': 'Application cannot be added'}
     return HttpResponse(json.dumps(response), content_type='application/json')
 
 def install_application(request):
@@ -61,7 +59,7 @@ def install_application(request):
                 instance_params = utils.fully_provide_application(application, api)
                 connection.txn.Commit({'txn_id': txn_id})
                 instance = Instance.objects.create(**instance_params)
-                response = {'status': 0, 'instance_id': instance.instance_id}
+                response = {'status': 0, 'result': 'Application id is ' + str(instance.instance_id)}
             except Exception as e:
                 connection.txn.Rollback({'txn_id': txn_id})
                 response = {'status': 1, 'Error': str(e) + ' , action rolled back'}

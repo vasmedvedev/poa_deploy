@@ -2,7 +2,7 @@
 
 {% block scripts %}{{ block.super }}
 <script src="/static/poa_deploy/index_page.js"></script>
-<script src="/static/poa_deploy/get_cookie.js"></script>
+<script src="/static/poa_deploy/utils.js"></script>
 {% endblock scripts %}
 {% block pagetitle %}{{ pagetitle }}{% endblock pagetitle %}
 
@@ -36,6 +36,8 @@
 		APS application URL: <input style="height: 15px; width: 300px" type="text" name="aps_url">
 		<input id="submit" type="submit" value="Add" class="button"/>
 	</form>
+    <div id="app_add_output"></div>
+    <div id="app_install_output"></div>
 	<table id="app_table" style="width:500px">
 		<thead>
 			<tr>
