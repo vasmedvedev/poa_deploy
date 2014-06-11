@@ -23,25 +23,27 @@ var $interceptForm = function(form, outputElem, additionalParams) { //Inputs are
     }); // $( form )
 }// var $interceptForm
 
-var $getEntitiesAndDraw = function(url, outputElem) {
+var $getEntitiesAndDraw = function(url, outputElem, $form) {
     var postData = [{name: 'csrfmiddlewaretoken', value: getCookie('csrftoken')}];
     $.ajax({
         url: url,
         type: "POST",
         data: postData,
         success: function(data) {
-            //data = $.parseJSON(data);
-            console.log(data);
             $.each(data, function(i, item) {
                 $('<tr>').append(
                     $('<td>').text(item.fields.app_name),
                     $('<td>').text(item.fields.aps_version),
                     $('<td>').text(item.fields.package_version),
-                    $('<input type="radio" name="app_id">').attr("value", item.pk)
-                ).appendTo(outputElem);
-            });
+                    $('<input type="radio" name="app_id">').attr({
+                        value: item.pk,
+                        form: $form.attr('id')
+                    })
+                ).appendTo(outputElem); //$<tr>
+            }); //$.each
+            $('<button>').text("Install").attr({form: $form.attr('id')}).appendTo($form);
         } // success function
-    });
+    }); //$.ajax
 } // var $getEntitiesAndDraw
 
 function getCookie(name) {
