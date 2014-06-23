@@ -1,5 +1,5 @@
 class Api:
-    def __init__(self, connection, txn_id):
+    def __init__(self, connection, txn_id=None):
         self.connection = connection
         self.txn_id = txn_id
 
