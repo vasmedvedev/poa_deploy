@@ -88,8 +88,8 @@ def create_service_template(rt_id, app_name, api):
     return st_id
 
 def create_subscription(st_id, app_name, api):
-    domain_name = app_name + '-autotest.com'
-    params = {'subscription_name': app_name + "-autotest",
+    domain_name = app_name.replace(" ", "") + '-autotest.com'
+    params = {'subscription_name': app_name.replace(" ", "") + "-autotest",
               'account_id': 5,
               'service_template_id': st_id,
               'parameters': [{'var_name': 'domain_name',
