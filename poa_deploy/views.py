@@ -53,8 +53,8 @@ def install_application(request):
         connection = utils.connect_via_rpc(mn_ip)
         application = Application.objects.get(pk=app_id)
         if connection is not None and application is not None:
+            txn_id = connection.txn.Begin()['result']['txn_id']
             try:
-                txn_id = connection.txn.Begin()['result']['txn_id']
                 api = Api(connection, txn_id)
                 instance_params = utils.fully_provide_application(application, api)
                 connection.txn.Commit({'txn_id': txn_id})
@@ -62,7 +62,7 @@ def install_application(request):
                 response = {'status': 0, 'result': 'Application id is ' + str(instance.instance_id)}
             except Exception as e:
                 connection.txn.Rollback({'txn_id': txn_id})
-                response = {'status': 1, 'Error': str(e) + ' , action rolled back'}
+                response = {'status': 1, 'result': 'Error ' + str(e) + ' , action rolled back'}
         else:
             return None
     return HttpResponse(json.dumps(response), content_type='application/json')
@@ -70,7 +70,7 @@ def install_application(request):
 def get_applications(request):
     if request.method == 'POST' and request.is_ajax():
         applications = Application.objects.order_by('id')
-        json = serializers.serialize('json', applications)
-        return HttpResponse(json, content_type='application/json')
+        json_response = serializers.serialize('json', applications)
+        return HttpResponse(json_response, content_type='application/json')
     else:
         return HttpResponse('Request is invalid')

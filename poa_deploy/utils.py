@@ -9,11 +9,13 @@ from poa_deploy.models import Instance
 
 
 def application_url_correct(url):
+    if type(url) is not str:
+        return False
     app_url_regex = '^https:\/\/apscatalog\.com\/storage.*app\.zip$'
     return True if re.match(app_url_regex, url) is not None else False
 
 def get_appmeta_url(url):
-    return '/'.join(url.split('/')[:-1]) + '/resources/APP-META.xml'
+    return '/'.join(url.split('/')[:-1]) + '/resources/APP-META.xml' if application_url_correct(url) else None
 
 def get_app_meta_parsed(app_meta_url):
     """ Let's get ElementTree object from APP-META """

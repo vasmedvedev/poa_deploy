@@ -1,0 +1,69 @@
+<application packaged="2014-07-11T06:49:04" version="1.2"><id>ZenCart</id><name>Zen Cart</name><version>1.5.3</version><release>5</release><homepage>http://www.zen-cart.com/</homepage><vendor><name>Zen Cart</name><homepage>http://www.zen-cart.com</homepage><icon path="images/icon.png"/></vendor><packager><name>Glowtouch Technologies</name><homepage>http://www.glowtouch.com/</homepage><icon path="images/GlowTouch.png"/><uri>uuid:714f0a7b-85d6-4eb8-b68e-40f9acbb3103</uri></packager><presentation><summary>Shopping cart software</summary><description>
+			Zen Cart truly is the art of e-commerce. It is built for
+			entrepreneurs by entrepreneurs. The program is built by
+			programmers and designers who understand the online selling
+			process from start to finish. Zen Cart has included all the
+			necessary tools required to build a successful online store
+			and we are constantly improving and upgrading the software
+			based on our users requirements.
+		</description><icon path="images/icon.png"/><screenshot path="images/screenshot.jpg"><description>Newly installed Zen Cart</description></screenshot><changelog><version release="11" version="1.5.1"><entry>
+					Added new language plugins in the language folder
+				</entry></version><version release="10" version="1.5.1"><entry>Layout Box Controller menu item fixed</entry></version><version release="9" version="1.5.1"><entry>
+					Copy custom languages from admin directory on
+					upgrade;
+				</entry><entry>
+					Language uploader fixed to place files in new
+					zen_admin directory;
+				</entry><entry>French is moved back, for upgrade sake.</entry></version><version release="7" version="1.5.1"><entry>Changes in htdocs files</entry></version><version release="5" version="1.5.1"><entry>
+					Spanish and Norwagian added, French outdated,
+					removed
+				</entry></version><version release="1" version="1.5.1"><entry>
+					http://www.zen-cart.com/showthread.php?200259-Zen-Cart-v1-5-1-Released!-**-Performance-Improvements-Bug-Fixes-etc
+				</entry></version><version release="5" version="1.5.0"><entry>
+					Modified the test scripts for Locale uploader
+				</entry></version><version release="4" version="1.5.0"><entry>Modified to block the password reset.</entry></version><version release="3" version="1.5.0"><entry>Changes done in Test Scripts.</entry></version><version release="2" version="1.5.0"><entry>
+					Added the POA Installation Document "Zen Cart
+					Installation Manual_V1.0.doc" in the docs folder.
+				</entry></version><version release="1" version="1.5.0"><entry>
+					http://www.zen-cart.com/showthread.php?190424-v1-5-0-Release-Available
+				</entry></version><version release="3" version="1.3.9h"><entry>
+					Release notes:
+					http://www.zen-cart.com/forum/showthread.php?t=166875
+				</entry></version><version release="12" version="1.3.9d"><entry>German language correction</entry><entry>
+					Database prefix fixed, setting for db prefix is
+					added
+				</entry></version><version release="9" version="1.3.9d"><entry>
+					Theme and Locale uploader: correct redirection after
+					login
+				</entry></version><version release="8" version="1.3.9d"><entry>Menu for locale upload is added</entry></version><version release="7" version="1.3.9d"><entry>Upgrade to version 1.3.9d</entry></version><version release="4" version="1.3.8"><entry/></version><version release="3" version="1.3.8"><entry>Repackaged to conform new standard</entry></version><version release="31" version="1.2.6"><entry>Initial package version</entry></version><version release="1" version="1.5.3"><entry>
+					Improvements include: CHANGE-511 - Change DB
+					functions from mysql to mysqli CHANGE-89 - Convert
+					to bcrypt for password security hashing (requires
+					PHP 5.3.7 or newer) CHANGE-491 - Timezone patch for
+					PHP 5.3/5.4/5.5 (this makes the "timezone
+					offset" plugin obsolete) CHANGE-566 - Add Admin
+					switch to relax PA-DSS "strong" password
+					requirements when in Demo mode CHANGE-543 - Updates
+					for PHP 5.5 Compatibility; Verified PHP 5.6-beta
+					compatibility CHANGE-432 - Numerous fixes for
+					stricter PHP 5.4 compatibility CHANGE-350 -
+					Improvements to queryFactory to better support sql
+					caching CHANGE-359 - Add advanced developer tool for
+					Notifier Trace and a global eventID CHANGE-412 -
+					Increase length of session key field due to changes
+					in PHP defaults CHANGE-421 - Update Authorize.net
+					modules to support CAD and UK currencies CHANGE-427
+					- Fix Memory Leak with PHP 5.3/5.4 CHANGE-434 - Add
+					additional SSL detection checks to accommodate more
+					poorly configured hosting companies CHANGE-450 -
+					Switch to SSL for contact-us form (when SSL is
+					enabled) CHANGE-452 - Add multiple-language and
+					multiple-location support to the Store Pickup
+					shipping module CHANGE-454 - Made low-stock emails
+					interceptable by notifier/observer CHANGE-524 - Fix
+					SaleMaker issues on Discount Quantity ISSUE-54 -
+					Session handling improvements ISSUE-82 - Fix odd PHP
+					5.4 quirk which triggers fatal error "Allowed
+					memory size of --- bytes exhausted" when
+					accessing SID constant
+				</entry></version><version release="5" version="1.5.3"><entry>Added autologin</entry></version></changelog><categories><category>Web/E-commerce</category></categories><languages><language>en</language></languages></presentation><global-settings/><upgrade match="/application/version >= '1.3.8' and /application/release >= '1'"/><service id="Zen Cart"><license must-accept="true"><text><name>GNU GENERAL PUBLIC LICENSE</name><file>htdocs/license.txt</file></text></license><presentation><infolinks><link class="support" href="http://www.zen-cart.com/content.php?337-support">Support</link></infolinks><entry-points><entry class="control-panel" dst="/zen_admin/customlogin.php" method="POST"><label>Administrative interface</label><variable class="login" name="admin_name" value-of-setting="admin_name"/><variable class="password" name="admin_pass" value-of-setting="admin_password"/></entry><entry dst="/"><label>Online Catalog</label></entry><entry dst="/zen_admin/theme_uploader.php"><label>Upload themes</label></entry><entry dst="/zen_admin/locale_uploader.php"><label>Upload language</label></entry></entry-points></presentation><settings><group class="authn"><name>Administrator's preferences</name><setting class="login" default-value="admin" id="admin_name" type="string"><name>Administrator's name</name></setting><setting class="password" id="admin_password" type="password"><name>Password</name></setting><setting class="value" id="admin_email" type="email"><name>Administrator's email</name></setting></group><group class="web"><name>Other preferences</name><setting class="locale" id="locale" type="enum"><choice id="en-US"><name>English</name></choice><choice id="fr-FR"><name>French</name></choice><choice id="de-DE"><name>German</name></choice><choice id="nl-NL"><name>Dutch</name></choice></setting></group><group class="web"><name>Configuration</name><setting class="vcard" default-value="database" id="sql_cache_method" type="enum"><name>Cache method</name><choice id="database"><name>Database</name></choice><choice id="file"><name>File</name></choice></setting></group></settings><requirements><db:db><db:id>main</db:id><db:default-name>zencart</db:default-name><db:can-use-tables-prefix>true</db:can-use-tables-prefix><db:server-type>mysql</db:server-type><db:server-min-version>3.2</db:server-min-version></db:db><php:extension>mysql</php:extension><php:version min="4.3.2"/></requirements><provision><url-mapping><default-prefix>/zencart/</default-prefix><installed-size>19053429</installed-size><mapping path="htdocs" url="/"><php:handler><php:extension>php</php:extension></php:handler><mapping url="images"><php:permissions writable="true"/></mapping><mapping url="zen_admin"><mapping url="includes/languages"><php:permissions writable="true"/></mapping><mapping url="includes/classes"><php:permissions writable="true"/></mapping><mapping url="images/graphs"><php:permissions writable="true"/></mapping><mapping url="backups"><php:permissions writable="true"/></mapping></mapping><mapping url="cache"><php:permissions writable="true"/></mapping><mapping url="includes/templates"><php:permissions writable="true"/></mapping><mapping url="includes/languages"><php:permissions writable="true"/></mapping><mapping url="media"><php:permissions writable="true"/></mapping><mapping url="pub"><php:permissions writable="true"/></mapping><mapping url="editors/htmlarea/lang"><php:permissions writable="true"/></mapping></mapping></url-mapping><configuration-script name="configure"><script-language>php</script-language></configuration-script></provision></service></application>
