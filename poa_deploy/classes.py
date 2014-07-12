@@ -6,8 +6,8 @@ class Api:
     def execute(self, method, **params):
         response = getattr(self.connection, method)(params) # Hack from poaupdater
         if response['status'] != 0:
+            self.txn_id = None
             raise Exception('Method {0} returned non-zero status {1} and\
                              error {2}'.format(method, response['status'], response['error_message']))
-            self.txn_id = None
         else:
             return response.get('result', None)

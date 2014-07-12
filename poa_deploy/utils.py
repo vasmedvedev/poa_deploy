@@ -31,7 +31,7 @@ def get_app_meta_parsed(app_meta_url):
         return None
 
 def get_application_attributes(app_meta_parsed):
-        attributes = {}
+        attributes = dict()
         attributes['aps_version'] = '1.0' if not app_meta_parsed.attrib else app_meta_parsed.attrib['version']
         if attributes['aps_version'] == '2.0':
             attributes['package_version'] = '-'.join([app_meta_parsed.find('{http://aps-standard.org/ns/2}version').text,
